@@ -1,0 +1,171 @@
+<template>
+	<list :id="parentListId" class="page" :bounce="false" isSwiperList="true">
+		<cell class="firstMain">
+			<view id="head" class="header">
+				<image @click="turnBack" src="https://7463-tcb-lsgag8dl5de0e4-4dq8l0eaf059a-1311058144.tcb.qcloud.la/noTabSvg/返回.svg" class="headerIcon back"></image>
+				<image class="avatar" :src="avatarUrl ? avatarUrl : '../../static/png/others/用户头像.png'" mode=""></image>
+				<view class="name">{{userName ? userName : 'xxx' }}</view>
+			</view>
+		</cell>
+		
+		<cell class="secondMain">
+			<view class="main-content" >
+				
+				<list ref="sublist" class="list" :offset-accuracy="5" :bounce="false" isSwiperList="true">
+					<cell class="list-cell" v-for="(item, index) in dataList" :key="item.id" :ref="'item'+index" @click="onclick">
+						<view class="list-item">
+							<image class="itemIcon" :src="item.icon" mode=""></image>
+							<text class="itemTitle">{{item.title}}</text>
+						</view>
+					</cell>
+				</list>
+			</view>
+		</cell>
+	</list>
+</template>
+
+<script>
+	// #ifdef APP-PLUS
+	const dom = weex.requireModule('dom');
+	// #endif
+	import {
+		mapState
+	} from 'vuex'
+	
+	import { menu as material} from '../../utils/material.js'
+	
+	export default {
+		data() {
+			return {
+				parentListId: "parentListId",
+				pageHeight: 300,
+				dataList: [],
+				refreshing: false,
+				refreshText: "",
+				refreshFlag: false
+			}
+		},
+		created() {
+			for(let i = 0 ; i<material.length;i++) {
+				material[i].id = i+1;
+			}
+			this.dataList = material
+		},
+		computed:mapState(['userName','avatarUrl']),
+		onReady() {
+			this.pageHeight = uni.getSystemInfoSync().windowHeight;
+		},
+		methods: {
+			turnBack() {
+				uni.navigateBack({
+					url: '/pages/my/my'
+				});
+			}
+		}
+	}
+</script>
+
+<style>
+	/* #ifndef APP-PLUS */
+	page {
+		width: 100%;
+		min-height: 100%;
+		display: flex;
+		/* padding-top: 80px; */
+	}
+
+	/* #endif */
+
+	.page {
+		flex: 1;
+	}
+	
+	.header {
+		position: relative;
+		width: 100vw;
+		/* height: 40%; */
+		height: 260px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background-color: #fff;
+		border-bottom-left-radius: 50vw;
+		border-bottom-right-radius: 50vw;
+		box-shadow: 0 2px 10px 0px  rgba(25,107,166,0.1);
+	}
+	.headerIcon {
+		position: absolute;
+		top: 80px;
+		width: 20px;
+		height: 20px;
+	}
+	.back {
+		left: 30px;
+	}
+	.avatar {
+		margin-top: 60px;
+		border-radius: 50%;
+		width: 70px;
+		height: 70px;
+		background-image: url(../../static/png/others/用户头像.png);
+		background-size: cover;
+	}
+	.name {
+		margin-top: 10px;
+		letter-spacing: 5rpx;
+		font-size: 20px;
+		color: #616161;
+		font-weight: bold;
+	}
+	.main-content {
+		width: 90vw;
+		margin: 0 auto;
+		height: 60%;
+		padding: 40px;
+		padding-top: 10px;
+		/* padding-top: 20px; */
+		display: flex;
+	}
+
+	.list {
+		flex: 1;
+		display: flex;
+		height: 100%;
+		flex-direction: column;
+	}
+	.list-cell {
+		flex: 1;
+		display: flex;
+		
+		align-items: center;
+	}
+	.list-item {
+		margin-top: 4px;
+		margin-bottom: 4px;
+		width: 100%;
+		/* height: 40px; */
+		padding: 15px;
+		background-color: #fff;
+		border-radius: 15px;
+		box-shadow: 0 2px 10px 0px  rgba(25,107,166,0.1);
+		display: flex;	
+		/* justify-content: space-around; */
+		align-items: center;
+		flex-direction: row;
+		position: relative;
+	}
+	.itemIcon {
+		width: 20px;
+		height: 20px;
+		margin-right: 60px;
+	}
+	.itemTitle {
+		position: absolute;
+		left: 50%;
+		font-size: 16px;
+		color: #6B400D;
+		font-weight: 550;
+		transform: translateX(-50%);
+	}
+</style>

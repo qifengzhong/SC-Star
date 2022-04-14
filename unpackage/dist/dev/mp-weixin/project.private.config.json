@@ -1,0 +1,54 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "【我的】页面",
+          "pathName": "pages/my/my",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "【登录】页面",
+          "pathName": "pages/login/login",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "【启动】页面",
+          "pathName": "pages/start/start",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "【首页】页面",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "【闯关】页面",
+          "pathName": "pages/emigrated/emigrated",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "【菜单】页面",
+          "pathName": "pages/menu/menu",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

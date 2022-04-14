@@ -1,0 +1,317 @@
+<template>
+	<list :id="parentListId" class="page" :bounce="false" isSwiperList="true">
+		
+		<cell>
+			<view id="head" class="header">
+				<!-- <image src="https://7463-tcb-lsgag8dl5de0e4-4dq8l0eaf059a-1311058144.tcb.qcloud.la/svg/设置.svg"  class="headerIcon settings"></image> -->
+				<image @click="turnToMenu" src="https://7463-tcb-lsgag8dl5de0e4-4dq8l0eaf059a-1311058144.tcb.qcloud.la/svg/菜单.svg" class="headerIcon menu"></image>
+				<!-- <image class="avatar" src="https://7463-tcb-lsgag8dl5de0e4-4dq8l0eaf059a-1311058144.tcb.qcloud.la/svg/头像.svg" mode=""></image> -->
+				<image class="avatar" :src="avatarUrl ? avatarUrl : '../../static/png/others/用户头像.png'" mode=""></image>
+				<view class="name">{{userName ? userName : 'xxx' }}</view>
+			</view>
+		</cell>
+		
+		<cell>
+			<view class="main-content" :style="'height:' + pageHeight + 'px'">
+				
+				<view class="contentTitle">
+					<view class="yellowLine"></view>
+					<view class="leftContentTitle">今天</view>
+					<view class="rightContentTitle">全部</view>
+				</view>
+				
+				<list ref="sublist" class="list" :offset-accuracy="5" :bounce="false" isSwiperList="true">
+					<cell v-for="(item, index) in dataList" :key="item.id" :ref="'item'+index" @click="onclick">
+						<view class="list-item">
+							<view class="listHeader">
+								<view class="listHeaderLeft">{{item.title}}</view>
+								<image class="listHeaderRight" src="https://7463-tcb-lsgag8dl5de0e4-4dq8l0eaf059a-1311058144.tcb.qcloud.la/svg/全部.svg" mode=""></image>
+							</view>
+							<view class="line"></view>
+							<view class="useTime">
+								
+								<view class="time">
+									{{item.useTime}}
+								</view>
+								<view style="color:#c0c0c0;font-size:12px;">分钟</view>
+							</view>
+							<!-- 学习记录 -->
+							<view v-if="item.title === '学习记录'" class="listDataShow">
+								<view class="chartBox" >
+									<!-- <view style="left:16.667%;transform: translateX(-50%);" class="chartItem">
+										<view class="title">30min</view>
+										<view style="height: 30px;width:18px;background-color: #febe00;" class="column"></view>
+									</view>
+									<view style="left:50%;transform: translateX(-50%);" class="chartItem">
+										<view class="title">20min</view>
+										<view style="height: 15px;width:18px;background-color: #febe00;" class="column"></view>
+									</view>
+									<view style="left:83.33%;transform: translateX(-50%);" class="chartItem">
+										<view class="title">20min</view>
+										<view style="height: 15px;width:18px;background-color: #febe00;" class="column"></view>
+									</view> -->
+								</view>
+								<view class="dotLine"></view>
+								<view style="justify-content: space-around;" class="x-axis">
+									<text>口语</text>
+									<text>手语</text>
+									<text>闯关</text>
+								</view>
+							</view>
+							<!-- 学习时长 -->
+							<view v-else class="listDataShow">
+								<view class="chartBox">
+									<!-- <view style="left:60%" class="chartItem">
+										<view class="title">30分钟</view>
+										<view style="height: 30px;" class="column"></view>
+									</view>
+									<view style="left:80%" class="chartItem">
+										<view class="title">20分钟</view>
+										<view style="height: 15px;" class="column"></view>
+									</view> -->
+								</view>
+								<view class="dotLine"></view>
+								<view class="x-axis">
+									<text>00:00</text>
+									<text>08:00</text>
+									<text>16:00</text>
+									<text>24:00</text>
+								</view>
+							</view>
+						</view>
+					</cell>
+				</list>
+			</view>
+		</cell>
+	</list>
+</template>
+
+<script>
+	// #ifdef APP-PLUS
+	const dom = weex.requireModule('dom');
+	// #endif
+	import {
+		mapState
+	} from 'vuex'
+	
+	export default {
+		data() {
+			return {
+				parentListId: "parentListId",
+				pageHeight: 300,
+				dataList: [
+					{
+						id:1,
+						useTime:0,
+						title:'学习时长'
+					},
+					{
+						id:2,
+						useTime:0,
+						title:'学习记录'
+					}
+				],
+			}
+		},
+		computed:mapState(['userName','avatarUrl']),
+		created() {
+		},
+		onReady() {
+			this.pageHeight = uni.getSystemInfoSync().windowHeight;
+		},
+		methods: {
+			turnToMenu() {
+				uni.navigateTo({
+					url: '/pages/menu/menu'
+				});
+			}
+		}
+	}
+</script>
+
+<style scoped> 
+	/* #ifndef APP-PLUS */
+	page {
+		width: 100%;
+		min-height: 100%;
+		display: flex;
+	}
+	
+	/* #endif */
+
+	.page {
+		flex: 1;
+	}
+	.header {
+		position: relative;
+		height: 260px;
+		width: 100vw;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background-color: #fff;
+		border-bottom-left-radius: 50vw;
+		border-bottom-right-radius: 50vw;
+		box-shadow: 0 2px 10px 0px  rgba(25,107,166,0.1);
+	}
+	.headerIcon {
+		position: absolute;
+		top: 80px;
+		width: 20px;
+		height: 20px;
+	}
+	.settings {	
+		right: 30px;
+	}
+	.menu {
+		left: 30px;
+	}
+	.avatar {
+		margin-top: 60px;
+		border-radius: 50%;
+		width: 70px;
+		height: 70px;
+		background-image: url(../../static/png/others/用户头像.png);
+		background-size: cover;
+	}
+	.name {
+		margin-top: 10px;
+		letter-spacing: 5rpx;
+		font-size: 20px;
+		color: #616161;
+		font-weight: bold;
+	}
+	.main-content {
+		width: 90vw;
+		margin: 0 auto;
+		margin-top: 20px;
+	}
+	
+	.contentTitle {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		position: relative;
+		top: -15px;
+	}
+	.yellowLine {
+		display: inline-block;
+		width: 4px;
+		height: 20px;
+		background-color:#fed14c ;
+		margin-right: 5px;
+	}
+	.leftContentTitle {
+		font-size: 20px;
+		font-weight: 500;
+		/* color: #febe00;
+		color: #6B400D;
+		color: #666666; */
+	}
+	.rightContentTitle {
+		position: absolute;
+		right: 0px;
+		color: #8c8c8c;
+		font-size: 14px;
+	}
+	.list {
+		flex: 1;
+	}
+
+	.list-item {
+		margin-top: 12px;
+		height: 30vh;
+		padding: 15px;
+		background-color: #fff;
+		border-radius: 15px;
+		box-shadow: 0 2px 10px 0px  rgba(25,107,166,0.1);
+		display: flex;
+	}
+	.listHeader {
+		display: flex;
+		flex: 1;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.listHeaderLeft {
+		color: #616161;
+		font-size: 16px;
+		font-weight: bold;
+	}
+	.listHeaderRight {
+		width: 20px;
+		height: 20px;
+	}
+	.line {
+		margin-top: 3px;
+		width: 100%;
+		height: 1px;
+		background-color: #e2e2e2;
+	}
+	.useTime {
+		display: flex;
+		flex: 1;
+		flex-direction: row;
+		margin-top: 10px;
+		align-items:flex-end;
+	}
+	.time {
+		color: #616161;
+		font-size: 22px;
+		font-weight: bold;
+		margin-right: 3px;
+		
+	}
+	.listDataShow {
+		flex: 3;
+		position: relative;
+		display: flex;
+		flex-direction: row;
+	}
+	.dotLine {
+		flex: 1;
+		position: absolute;
+		bottom: 24px;
+		width:100%;
+		height: 1px;	
+		background-image: linear-gradient(to right, #c0c0c0 0%, #c0c0c0 50%, transparent 50%);
+		
+		background-size: 8px 1px;
+		border-radius: 50%;
+		background-repeat: repeat-x;
+	}
+	.x-axis {
+		flex: 1;
+		position: absolute;
+		bottom: 0px;
+		color: #c0c0c0;
+		width: 100%;
+		font-size: 12px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.chartBox {
+		width: 100%;
+		height: 70%;
+		position: relative;
+	}
+	.chartItem {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		bottom: 0px;
+	}
+	.chartItem .title {
+		color: #c0c0c0;
+		font-size: 10px;
+		margin-bottom: 3px;
+	}
+	.chartItem .column {
+		background-color: #ffe28c;
+		width: 8px;
+	}
+</style>

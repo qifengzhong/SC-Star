@@ -1,0 +1,94 @@
+
+.main.data-v-b237504c {
+	/* 加载背景图 */
+	background-image: url("https://7463-tcb-lsgag8dl5de0e4-4dq8l0eaf059a-1311058144.tcb.qcloud.la/svg/账号页背景.svg");
+	width: 100vw;
+	height: 100vh;
+	/* 背景图垂直、水平均居中 */
+	background-position: center center;
+	/* 背景图不平铺 */
+	background-repeat: no-repeat;
+	/* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+	background-attachment: fixed;
+	/* 让背景图基于容器大小伸缩 */
+	background-size: cover;
+}
+.innerMain.data-v-b237504c {
+	width: 90vw;
+	margin: 0 auto;
+	height: 100%;
+	position: relative;
+}
+.backToStart.data-v-b237504c {
+	position: absolute;
+	left: 0;
+	top:50px;
+}
+.closeIcon.data-v-b237504c {
+	font-size: 26px;
+	color: #ccc;
+}
+.title.data-v-b237504c {
+	position: absolute;
+	top: 110px;
+	left:0;
+	font-weight: 400;
+	font-size: 18px;
+	letter-spacing: 3rpx;
+}
+.inputBox.data-v-b237504c {
+	position: absolute;
+	top: 180px;
+	left:0;
+	width: 100%;
+}
+.bottomInput.data-v-b237504c {
+	margin-top: 18px;
+}
+input.data-v-b237504c {
+	letter-spacing: 3rpx;
+	font-size: 14px;
+	height: 30px;
+	color: #8c8c8c;
+	border-bottom: 1px solid #9ebbc7;
+}
+.turnToIndex.data-v-b237504c {
+	position: absolute;
+	top: 290px;
+	width: 100%;
+	height: 40px;
+}
+.loginBtn.data-v-b237504c {
+	width: 100%;
+	height: 100%;
+	letter-spacing: 10rpx;
+	line-height: 40px;
+	color: white;
+	border-radius: 20px;
+	border: none;
+	background-color: #65c2ff;
+}
+.footer.data-v-b237504c {
+	position: absolute;
+	bottom: 50px;
+	width: 100%;
+	height: 60px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+.footerTitle.data-v-b237504c {
+	font-size: 12px;
+	color: #8c8c8c;
+}
+.iconBox.data-v-b237504c {
+	width: 56%;
+	display: flex;
+	justify-content: space-around;
+}
+.icon.data-v-b237504c {
+	width: 30px;
+	height: 30px;
+}
+

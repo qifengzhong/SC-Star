@@ -1,0 +1,142 @@
+<template>
+	<view class="uni-swiper-page">
+		<list ref="list" class="list" :offset-accuracy="5" :bounce="true" isSwiperList="true">
+			<cell v-for="(item, index) in dataList" :key="item.id" :ref="'item'+index" @click="onclick">
+				<view class="contentCard firstCard">
+					<view class="leftImage firstLeftImage" :style="'background-color:' + item.backgroundColor ">
+						<image class="cardImg" :src="item.url" mode=""></image>
+					</view>
+					<view class="cardMain" :style="'background-color:' + item.backgroundColor ">
+						<view class="cardTitle" :style="'background-color:' + item.btnColor + ';width:'+ item.title.length * 22 +'px'">{{item.title}}</view>
+						<view class="cardMainContent">{{item.content}}</view>
+						<image class="cardBtn" src="https://7463-tcb-lsgag8dl5de0e4-4dq8l0eaf059a-1311058144.tcb.qcloud.la/svg/播放.svg" mode=""></image>
+					</view>
+				</view>
+			</cell>
+			<cell class="loading"></cell>
+		</list>
+	</view>
+</template>
+
+<script>
+	  import { emigrated as material } from '../../utils/material.js';
+	
+	export default {
+		props: {
+			pid: {
+				type: [Number, String],
+				default: ''
+			},
+			parentId: {
+				type: String,
+				default: ''
+			}
+		},
+		data() {
+			return {
+				scrollable: true,
+				dataList: [],
+			}
+		},
+		created() {
+			let list = material[this.pid]
+			for(let i = 0 ; i<list.length;i++) {
+				list[i].id = i+1;
+			}
+			this.dataList = list
+			// for (var i = 1; i <= 32; i++) {
+			// 	this.dataList.push({
+			// 		id: i,
+			// 		name: i
+			// 	});
+			// }
+		},
+		methods: {
+			onclick(e) {
+				console.log("onclick");
+			},
+			loadData() {
+				// 首次激活时被调用
+				// console.log(this.parentId)
+				// 
+			},
+			clear() {
+				// 释放数据时被调用，参考 swiper-list 缓存配置
+				this.dataList.length = 0;
+			}
+		}
+	}
+</script>
+
+<style scoped>
+	.uni-swiper-page {
+		flex: 1;
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+	}
+	.list {
+		flex: 1;
+		
+	}
+	.contentCard {
+		width: 100%;
+		height: 110px;
+		border-radius: 15px;
+		overflow: hidden;
+		display: flex;
+		box-shadow: 0 2px 10px 0px  rgba(25,107,166,0.1);
+	}
+	.firstCard {
+		margin-bottom: 20px;
+	}
+	.leftImage {
+		width: 30%;
+		height: 100%;
+		flex:1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.cardImg {
+		width: 80%;
+		height: 80%;
+	}
+	.cardMain {
+		padding: 10px;
+		flex:2;
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		background-color: white;
+	}
+	.cardTitle {
+		font-size: 14px;
+		font-weight: 550;
+		color: #f9f9f9;
+		width: 70px;
+		height: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 5px;
+		margin-bottom: 3px;
+		box-shadow: 0 2px 10px 0px  rgba(25,107,166,0.1);
+	}
+	.cardMainContent {
+		color: #d0d0d0;
+		font-size: 12px;
+	}
+	.cardBtn {
+		width: 30px;
+		height: 30px;
+		position: absolute;
+		bottom: 20px;
+		right: 20px;
+	}
+	.loading {
+		height: 20px;
+	}
+</style>
